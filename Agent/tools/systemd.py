@@ -1,0 +1,34 @@
+import logging
+import subprocess
+import os
+
+from langchain_core.tools import tool
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+def get_systemctl_status(unit: str) -> str:
+    """Gets the status of a systemd unit.
+    Args:
+      unit: the systemd unit.
+    Returns:
+      str: the output of the `systemctl status <unit>` command.
+    """
+    cmd = ["systemctl", "status", unit, "--no-pager"]
+    if os.geteuid() != 0:
+        cmd.insert(0, "sudo")
+    logger.info(f"Running command: {cmd}")
+    process = subprocess.run(cmd, stdout=subprocess.PIPE)
+    return process.stdout.decode("utf-8")
+
+
+@tool
+def failed_systemd_units() -> str:
+    """Get systemd units in failed status.
+    Returns:
+        str: the output of `systemctl list-units --failed --no-pager --quiet`
+    """
+    cmd = "systemctl list-units --failed --no-pager --quiet"
+    logger.info(f"Running command: {cmd}")
+    return subprocess.getoutput(cmd)
+
