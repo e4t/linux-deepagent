@@ -1,3 +1,4 @@
+import os
 import logging
 import subprocess
 
@@ -5,9 +6,10 @@ from langchain_core.tools import tool
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-    
+
+
 @tool
-def get_process_using_port() -> str:
+def get_process_using_port(port: int) -> str:
     """Use lsof to find the process using <port>.
     Args:
       port: the port number to check.
@@ -20,4 +22,3 @@ def get_process_using_port() -> str:
     logger.info(f"Running command: {cmd}")
     process = subprocess.run(cmd, stdout=subprocess.PIPE)
     return process.stdout.decode("utf-8")
-    
