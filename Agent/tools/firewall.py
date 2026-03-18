@@ -1,3 +1,4 @@
+import os
 import logging
 import subprocess
 
@@ -5,7 +6,8 @@ from langchain_core.tools import tool
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-    
+
+
 @tool
 def firewall_cmd_list_ports() -> str:
     """Use firewall-cmd to list open ports.
@@ -21,6 +23,7 @@ def firewall_cmd_list_ports() -> str:
         return process.stdout.decode("utf-8")
     except FileNotFoundError:
         return "firewall-cmd not found. It may not be installed."
+
 
 @tool
 def firewall_cmd_list_services() -> str:
