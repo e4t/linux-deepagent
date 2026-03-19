@@ -4,7 +4,7 @@ import os
 
 from langchain_core.tools import tool
 
-logging.basicConfig(level=logging.INFO)
+#logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 def get_systemctl_status(unit: str) -> str:

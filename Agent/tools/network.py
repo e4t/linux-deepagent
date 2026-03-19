@@ -4,7 +4,7 @@ import subprocess
 
 from langchain_core.tools import tool
 
-logging.basicConfig(level=logging.INFO)
+#logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
